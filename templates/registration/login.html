@@ -1,0 +1,16 @@
+{% if froms.errors %}<p>You have entered an incorrect passowrd and username</p>{% endif %}
+{% if next %}
+    {% if not user.is_authenticated %}
+        <h1>You have to login to view the full page</h1>
+    {% else %}
+        <h1>Please, Login</h1>
+    {% endif %}
+{% endif %}
+
+<h1>Login </h1>
+<form {% url "login" %} action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Login">
+    <input type="hidden" name="next" value={{ next }}>
+</form>

@@ -1,0 +1,37 @@
+{% extends 'Reflection/_base.html' %}
+{% if user.is_authenticated %}
+    <p>Logged in as {{ user.username }}</p>
+    {% comment %} <a href="{% url "logout" %}">Logout</a> {% endcomment %}
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Log Out</button>
+    </form>
+{% else %}
+    <p>
+        Please, <a href="{% url "login" %}">Login</a>
+    </p>
+{% endif %}
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+{% block content %}
+    <div class="flex justify-between items-center  border-b-2 mb-8">
+        <div class=" flex items-center">
+            <h1 class="text-4xl text-gray-800 font-semibold mb-8">My Journals</h1>
+        </div>
+        <div class="flex items-center gap-4">
+            {% if user.is_authenticated %}{{ user.username }}{% endif %}
+            <div class='w-10 h-10 rounded-full bg-gray-500 flex items-center justify-center text-white'>
+                <span class="material-symbols-outlined">account_circle</span>
+            </div>
+        </div>
+    </div>
+    {% for journal in journals %}
+        {% comment %} <li>{{ journal.title }} | {{ journal.created_date }}</li> {% endcomment %}
+        <a href={}>
+            <div class="bg-gray-100/80 px-7  py-5 rounded-lg shadow my-4 hover:shadow-lg hover:cursor-pointer">
+                <p class="text-lg">{{ journal.title }}</p>
+                <p class="text-sm pt-4 text-gray-500">{{ journal.created_date|date:"D d M, Y" }}</p>
+            </div>
+        </a>
+    {% endfor %}
+{% endblock content %}

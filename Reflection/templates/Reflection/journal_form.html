@@ -1,0 +1,12 @@
+{% extends "Reflection/_base.html" %}
+{% load tailwind_filters %}
+{% block content %}
+    <h1 class="text-gray-800 font-semibold text-lg mb-3">Add a new Journal</h1>
+    <form action="" method="POST" class="py-5">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit"
+               value="Save"
+               class="w-full py-3 bg-purple-400 rounded-xl mt-4 text-lg hover:bg-purple-400/80 text-white font-semibold">
+    </form>
+{% endblock content %}
