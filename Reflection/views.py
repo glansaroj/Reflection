@@ -1,5 +1,5 @@
-from django.views.generic import TemplateView, CreateView
-from django.shortcuts import render
+from django.views.generic import TemplateView, CreateView, DetailView
+from django.shortcuts import render, get_object_or_404
 from .models import Journal
 from django.urls import reverse_lazy
 
@@ -26,3 +26,12 @@ class JournalCreateView(CreateView):
     def form_valid(self, form):
         form.instance.owner = self.request.user  # owner - logged in user itself
         return super().form_valid(form)
+
+
+def Journal_details(request, id):
+    Journal_detail = get_object_or_404(Journal, id=id,)
+    context = {
+        "journal": Journal_detail
+    }
+
+    return render(request, 'Reflection/details.html', context)

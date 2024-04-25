@@ -1,0 +1,18 @@
+{% extends "Reflection/_base.html" %}
+{% block content %}
+    <div>
+        <button class="my-2 text-sm bg-gray-700 text-white  py-2  px-4 mb-5 rounded-md">
+            <a href="{% url 'journal-list' %}">&larr; Go Back</a>
+        </button>
+        {% comment %} <h1 class="text-xl text-gray-800 font-semibold mb-5">Journals Details</h1> {% endcomment %}
+        <hr class='h-2'>
+        <div class="w-full  border-2 rounded-lg px-8 py-7 mt-4 bg-yellow-200/60">
+            <p class=" font-bold  text-2xl text-gray-700">{{ journal.title }}</p>
+            <hr class="h-px bg-gray-600/70 border-0 mt-3">
+            <img class='w-full h-[500px] overflow-hidden mt-3 rounded-md'  src="{{ journal.image.url }}">
+            <p class=" my-4 leading-8 text-gray-700">{{ journal.notes }}</p>
+            <hr class="h-px bg-gray-600/70 border-0 mt-10">
+            <p class="text-purple-500  text-xs mt-4">{{ journal.created_date|date:"D d M, Y" }}</p>
+        </div>
+    </div>
+{% endblock content %}

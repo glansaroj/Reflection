@@ -6,7 +6,7 @@ User = get_user_model()
 
 # Create your models here.
 class Journal(models.Model):
-    title = models.CharField(max_length=20)
+    title = models.CharField(max_length=100)
     notes = models.TextField()
     image = models.ImageField(upload_to='notes', blank=True, null=True)
     created_date = models.DateTimeField()
