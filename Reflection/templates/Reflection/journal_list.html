@@ -27,13 +27,19 @@
     </div>
     <div class="grid grid-cols-3 gap-4 ">
         {% for journal in journals %}
-            <div class="bg-yellow-200/50 p-3 w-full   my- rounded-lg shadow border-2  hover:shadow-md  hover:cursor-pointer">
+            {% if not journals %}<h1>You haven't created your journal yet.</h1>{% endif %}
+            <div class="bg-gray-200/70 p-3 w-full   my- rounded-lg shadow border-[1px]  hover:shadow-lg  hover:cursor-pointer">
                 <a href={% url "journal-details" journal.id %}>
-                    <img class='w-full h-[200px] overflow-hidden  rounded-md'
-                         src="{{ journal.image.url }}">
-                    <p class="text-lg mt-3 font-medium text-gray-700">{{ journal.title }}</p>
+                    {% if journal.image %}
+                        <img class='w-full h-[200px] overflow-hidden  rounded-md'
+                             src="{{ journal.image.url }}">
+                    {% else %}
+                        <img class='w-full h-[200px] overflow-hidden  rounded-md'
+                             src="../../../media/lotus.jpg">
+                    {% endif %}
+                    <p class="text-lg mt-2 font-medium text-gray-700">{{ journal.title }}</p>
                 </a>
-                <p class="text-sm py-2 text-gray-500">{{ journal.created_date|date:"D d M, Y" }}</p>
+                <p class="text-sm py-1 text-gray-500">{{ journal.created_date|date:"D d M, Y" }}</p>
             </div>
         {% endfor %}
     </div>

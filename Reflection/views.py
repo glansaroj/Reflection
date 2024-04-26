@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, CreateView, DetailView
+from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView
 from django.shortcuts import render, get_object_or_404
 from .models import Journal
 from django.urls import reverse_lazy
@@ -35,3 +35,19 @@ def Journal_details(request, id):
     }
 
     return render(request, 'Reflection/details.html', context)
+
+
+class JournalUpdateView(UpdateView):
+    model = Journal
+    success_url = reverse_lazy('journal-list')
+    fields = ['title', 'notes', 'image', 'created_date']
+
+    def get_form(self):
+        form = super(JournalUpdateView, self).get_form()
+        form.instance.owner = self.request.user  # owner - logged in user itself
+        return form
+
+
+class JournalDeleteView(DeleteView):
+    model = Journal
+    success_url = reverse_lazy('journal-list')

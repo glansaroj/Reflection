@@ -2,10 +2,74 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Reflection</title>
+        <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body>
-        <h1>Welcome to Reflection ..</h1>
-    </body>
-</html>
+        <header class="text-gray-600 body-font border-b">
+            <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+                <div class="flex items-center">
+                    <img src="media\reflect.png" class="w-16 h-16"  alt="logo">
+                    <div>
+                        <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+                            <span class="ml-3 text-3xl font-bold text-gray-700">Reflection</span>
+                        </a>
+                    </div>
+                </div>
+                <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+                    {% if not user.is_authenticated %}
+                        <a href="{% url 'login' %}" class="mr-5 font-medium hover:text-gray-900">Login</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="mr-5 font-medium hover:text-gray-900">Logout</a>
+                    {% endif %}
+                </nav>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'journal-list' %}">
+                    {% else %}
+                        <a href="{% url 'signup' %}">
+                        {% endif %}
+                        <button class="inline-flex items-center bg-purple-400  text-white border-0 py-3 px-5 focus:outline-none hover:bg-purple-400/80 rounded-lg text-base mt-4 md:mt-0">
+                            {% if user.is_authenticated %}
+                                Dashboard
+                            {% else %}
+                                Signup
+                            {% endif %}
+                            <svg fill="none"
+                                 stroke="currentColor"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round"
+                                 stroke-width="2"
+                                 class="w-4 h-4 ml-1"
+                                 viewBox="0 0 24 24">
+                                <path d="M5 12h14M12 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+                    </a>
+                </div>
+            </header>
+            <section class="text-gray-600 flex justify-center items-center py-10">
+                <h1 class=" text-5xl font-bold leading-12 mt-16 text-2xl text-gray-700">
+                    Keep track of all your daily Journal,
+                    <br>
+                    never forget the amazing <span class="text-purple-400"> memories ...  </span> 
+                </h1>
+            </section>
+            <div class="flex justify-center items-center">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'journal-list' %}">
+                        <button class="flex text-white bg-purple-400 border-0 py-4 px-8 focus:outline-none hover:bg-purple-400/80 rounded-lg text-xl mt-10 sm:mt-0">
+                            Get Started !
+                        </button>
+                    </a>
+                {% else %}
+                    <a href="{% url 'signup' %}">
+                        <button class="flex-shrink-0 text-white bg-purple-400 border-0 py-2 px-8 focus:outline-none hover:bg-purple-400/80 rounded text-lg mt-10 sm:mt-0">
+                            Signup
+                        </button>
+                    </a>
+                {% endif %}
+            </div>
+        </body>
+    </html>
